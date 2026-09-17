@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حضور و غیاب تجمعات</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            margin: 0;
+            padding-top: 120px;
+            font-family: Vazirmatn, Tahoma, sans-serif;
+        }
+
+        .div_title {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            left: 10px;
+            border-radius: 10px;
+            background-color: aquamarine;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .main_list {
+            list-style: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .li_item {
+            background: white;
+            margin: 10px;
+            padding: 15px;
+            border: 2px solid orange;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .name_part { font-weight: bold; }
+
+        .check-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .check-container input[type="radio"] { display: none; }
+
+        .box {
+            width: 35px;
+            height: 35px;
+            border: 2px solid #bbb;
+            border-radius: 6px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-size: 20px;
+            transition: all 0.2s;
+        }
+
+        .radio-present:checked + .box {
+            background-color: #2ecc71;
+            border-color: #27ae60;
+            color: white;
+        }
+        .radio-present:checked + .box::after { content: "✓"; }
+
+        .radio-absent:checked + .box {
+            background-color: #e74c3c;
+            border-color: #c0392b;
+            color: white;
+        }
+        .radio-absent:checked + .box::after { content: "✕"; }
+
+        .add_number {
+            max-width: 550px;
+            margin: 20px auto;
+            padding-top: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+            background: white;
+            border: 2px dashed #888;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .add_number input {
+            padding: 10px;
+            font-size: 16px;
+            margin: 15px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            width: 60%;
+            font-family: inherit;
+        }
+        .add_number button {
+            padding: 10px 18px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        .add_number button:hover { background-color: #2980b9; }
+    </style>
+</head>
+<body>
+
+    <div class="div_title">
+        <h2 style="margin:0;">لیست حضور و غیاب 3 شهریور</h2>
+    </div>
+
+    <ul class="main_list" id="mainList">
+        <li class="li_item">
+            <span class="name_part">فرد شماره یک</span>
+            <div class="check-container">
+                <label><input type="radio" name="person_1" class="radio-present" value="present"><span class="box"></span></label>
+                <label><input type="radio" name="person_1" class="radio-absent" value="absent"><span class="box"></span></label>
+            </div>
+        </li>
+        <li class="li_item">
+            <span class="name_part">فرد شماره دو</span>
+            <div class="check-container">
+                <label><input type="radio" name="person_2" class="radio-present" value="present"><span class="box"></span></label>
+                <label><input type="radio" name="person_2" class="radio-absent" value="absent"><span class="box"></span></label>
+            </div>
+        </li>
+        <li class="li_item">
+            <span class="name_part">فرد شماره سه</span>
+            <div class="check-container">
+                <label><input type="radio" name="person_3" class="radio-present" value="present"><span class="box"></span></label>
+                <label><input type="radio" name="person_3" class="radio-absent" value="absent"><span class="box"></span></label>
+            </div>
+        </li>
+        <li class="li_item">
+            <span class="name_part">فرد شماره چهار</span>
+            <div class="check-container">
+                <label><input type="radio" name="person_4" class="radio-present" value="present"><span class="box"></span></label>
+                <label><input type="radio" name="person_4" class="radio-absent" value="absent"><span class="box"></span></label>
+            </div>
+        </li>
+    </ul>
+
+    <div class="add_number">
+        <h2>افزودن یک فرد</h2>
+        <input type="text" id="newName" placeholder="نام فرد جدید را بنویسید">
+        <button onclick="addPerson()">افزودن</button>
+    </div>
+    
+    <script src="app.js" defer></script>
+    <script>
+        let personCounter = 5;
+
+        function addPerson() {
+            const input = document.getElementById('newName');
+            const name = input.value.trim();
+            if (name === '') {
+                alert('لطفاً نام فرد را وارد کنید');
+                return;
+            }
+
+            const ul = document.getElementById('mainList');
+            const li = document.createElement('li');
+            li.className = 'li_item';
+
+            const groupName = 'person_' + personCounter;
+
+            li.innerHTML = `
+                <span class="name_part">${name}</span>
+                <div class="check-container">
+                    <label><input type="radio" name="${groupName}" class="radio-present" value="present"><span class="box"></span></label>
+                    <label><input type="radio" name="${groupName}" class="radio-absent" value="absent"><span class="box"></span></label>
+                </div>
+            `;
+
+            ul.appendChild(li);
+            personCounter++;
+            input.value = '';
+            input.focus();
+        }
+
+        // با زدن Enter هم اضافه شود
+        document.getElementById('newName').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') addPerson();
+        });
+    </script>
+
+</body>
+</html>

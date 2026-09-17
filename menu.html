@@ -1,0 +1,85 @@
+<html lang="fa">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حضور و غیاب تجمعات</title>
+    <style>
+        body {
+            background-color: #f0f2f5;
+            margin: 0; /* حذف فاصله پیش‌فرض بدنه */
+        }
+        
+        .div_title {
+            background-color: aquamarine;
+            position: fixed;
+            top: 10px;
+            left: 10;
+            right: 10;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+
+        .form-box { /* نام کلاس را به form-box تغییر دادم */
+            position: fixed;
+            top: 150px;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            padding: 35px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 350px;
+        }
+        button {
+        display: block;      /* دکمه را یک خط پایین‌تر می‌برد */
+        margin-top: 20px;    /* فاصله از اینپوت */
+        padding: 10px 20px;  /* اندازه داخل دکمه */
+        background-color: #007bff; /* رنگ آبی جذاب */
+        color: white;        /* رنگ متن */
+        border: none;        /* حذف کادر پیش‌فرض */
+        border-radius: 5px;  /* گرد کردن گوشه‌ها */
+        cursor: pointer;     /* وقتی موس روش می‌ره، شکل دست می‌شه */
+        }
+        
+        /* بقیه استایل‌ها... */
+        label { display: block; padding: 10px 0; font-weight: bold; }
+        input[type="text"] { width: 100%;  padding: 12px; border: 2px solid #ddd; border-radius: 6px; box-sizing: border-box; }
+    </style>
+</head>
+<body dir="rtl">
+    <div class="div_title">
+        <h2>برای ورود به سامانه نام کاربری خود را وارد کنید</h2>
+    </div>
+    
+    <div class="form-box">
+        <form id="loginForm">
+            <label for="user">نام کاربری</label>
+            <input type="text" id="user" placeholder="نام کاربری خود را وارد کنید">
+            <button type="submit">تایید</button>
+        </form>
+    </div>
+    <script src="app.js"></script>
+    <script>
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+    
+        const userValue = document.getElementById('user').value;
+    
+        // این خط بهت توی کنسول می‌گه چی دریافت کردی
+        console.log("مقدارِ وارد شده:", userValue); 
+
+        if(userValue === "admin") {
+            window.location.href = "start.html";
+        } else {
+            alert("نام کاربری تایید نشد.");
+        }
+        });
+
+    </script>
+</body>
+</html>
